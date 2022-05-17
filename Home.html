@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brewery</title>
+
+    <style>
+        
+        #main{
+            display: grid;
+            width: 500px;
+            align-items: center;
+            margin: 20px;
+        }
+
+    </style>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+    
+    <!-- navbar  -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Brewery</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/U5C3/Home.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/U5C3/brewery1.html">Brew</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/U5C3/search.html">Search</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div id="container"></div>
+
+
+      <div id="main">
+
+        <!-- dropdown list -->
+      <select class="form-select" id="options" onchange="getList()" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="cicro">Micro</option>
+        <option value="nano">Nano</option>
+        <option value="regional">Regional</option>
+        <option value="brewpub">Brewpub</option>
+        <option value="large">Large</option>
+        <option value="planning">Planning</option>
+        <option value="bar">Bar</option>
+        <option value="contract">Contract</option>
+        <option value="proprietor">Proprietor</option>
+        <option value="closed">Closed</option>
+      </select>
+      
+    
+      <div id="result">
+
+      </div>
+
+    </div>
+
+
+
+      
+    <!-- Bootstrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+    <script src="index.js"></script>
+
+</body>
+</html>

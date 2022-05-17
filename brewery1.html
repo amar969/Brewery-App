@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brewery</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+    
+    <!-- navbar  -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Brewery</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/U5C3/Home.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/U5C3/brewery1.html">Brew</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/U5C3/search.html">Search</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="card">
+
+      </div>
+
+    <!-- Bootstrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+
+    <script>
+
+        let data = JSON.parse(localStorage.getItem("brewery_id"))
+        console.log(data)
+
+
+        const getData = async() => {
+            let url = `https://api.openbrewerydb.org/breweries/${data}`
+
+            let res = await fetch(url)
+            let data1 = await res.json()
+
+            console.log(data1)
+            displayData(data1)
+        }
+
+        getData()
+
+        let card_div = document.querySelector(".card")
+        
+        const displayData = (el) => {
+
+            let card_body = document.createElement("div")
+            
+            let card_title = document.createElement("h5")
+            card_title.innerHTML = el.name
+
+            let card_loc = document.createElement("h6")
+            card_loc.innerHTML = el.street + ", " + el.city + ", " + el.state + ", " + el.country
+
+            let card_url = document.createElement("p")
+            card_url.innerHTML = el.website_url
+
+            let phone = document.createElement("p")
+            phone.innerHTML = el.phone
+
+            card_body.append(card_title, card_loc, card_url, phone)
+
+            card_div.append(card_body)
+        }
+
+    </script>
+
+</body>
+</html>
