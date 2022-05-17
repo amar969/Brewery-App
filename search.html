@@ -1,52 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-        <!-- Bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
+
 <body>
-    
+
     <!-- Search bar -->
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Brewery</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/U5C3/Home.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/U5C3/brewery1.html">Brew</a>
-              </li>
-            </ul>
+            <a class="navbar-brand" href="#">Brewery</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/U5C3/Home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/U5C3/brewery1.html">Brew</a>
+                    </li>
+                </ul>
 
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" id="search" oninput="debounce(getData,1000)" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" id="search" oninput="debounce(getData,1000)" type="search"
+                        placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
 
-          </div>
+            </div>
         </div>
-      </nav>
+    </nav>
 
-      <!--  Bootstrap js -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <div id="container">
 
-      <script>
+    </div>
 
-        
-        const getData = async() => {
+    <!--  Bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+
+        const getData = async () => {
             let searchResult = document.getElementById("search").value;
-        
+
             console.log(searchResult)
 
             // GET https://api.openbrewerydb.org/breweries?by_name=cooper&per_page=3
@@ -56,20 +67,86 @@
             let res = await fetch(url)
             let data = await res.json()
             console.log(data)
+            displayData(data)
         }
 
 
-        let timerID; 
+        let timerID;
 
         const debounce = (cbFunc, delay) => {
-            if(timerID) clearInterval(timerID)
+            if (timerID) clearInterval(timerID)
 
             timerID = setTimeout(() => {
                 cbFunc()
             }, delay)
         }
 
-      </script>
+
+        let res_div = document.getElementById("container")
+        const displayData = (data) => {
+            res_div.innerHTML = ""
+
+            let theading = ["Name", "Brewery_type", "City", "State"]
+            console.log(theading)
+
+            let table = document.createElement("table")
+            table.classList.add("table")
+
+            let thead = document.createElement("thead")
+
+            let table_row = document.createElement("tr")
+
+            theading.forEach((el) => {
+
+                let th = document.createElement("th")
+                th.innerHTML = el
+
+                table_row.append(th)
+            })
+
+            let tbody = document.createElement("tbody")
+            data.forEach((el) => {
+                let tr = document.createElement("tr")
+
+                let tdname = document.createElement("td")
+                tdname.innerHTML = el.name
+
+                let ttype = document.createElement("td")
+                ttype.innerHTML = el.brewery_type
+
+                let tdcity = document.createElement("td")
+                tdcity.innerHTML = el.city
+
+                let tdstate = document.createElement("td")
+                tdstate.innerHTML = el.state
+
+                let moreDetails = document.createElement("button")
+            moreDetails.innerHTML = "MORE DETAILS"
+            moreDetails.classList.add("btn", "btn-outline-primary")
+           
+            moreDetails.addEventListener("click", function(){
+                console.log(el.id)
+                localStorage.setItem("brewery_id", JSON.stringify(el.id))
+            })
+            
+
+                tr.appendChild(tdname)
+                tr.appendChild(ttype)
+                tr.appendChild(tdcity)
+                tr.appendChild(tdstate)
+                tr.appendChild(moreDetails)
+                tbody.appendChild(tr);
+
+            })
+            thead.append(table_row)
+            table.append(thead, tbody)
+
+            res_div.append(table)
+
+        }
+
+    </script>
 
 </body>
+
 </html>
